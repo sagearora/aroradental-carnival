@@ -30,9 +30,12 @@ export default function Home() {
   const submit = async (data: RegisterFormSchema) => {
     setIsSubmitting(true)
     try {
+      const currentTime = dayjs();
+      const nextHour = currentTime.startOf('hour').add(1, 'hour').format('h:mm A');
+
       const result = await register({
         timestamp: dayjs().format('MM/DD/YYYY H:mm:ss'),
-        time_slot: '',
+        time_slot: nextHour,
         id: -1,
         name: data.full_name,
         email: data.email,
@@ -79,10 +82,15 @@ export default function Home() {
         </svg>
         <div className='text-4xl font-bold text-green-600'>Registered Sucessfully</div>
         <div className='text-lg font-semibold'>Please keep this screen open and proceed to check-in</div>
-        {results.map(result => <div key={result.id} className="w-full bg-slate-200 border shadow-sm p-4 rounded-md">
-          <div className="text-2xl font-bold">{result.name}</div>
-          <div>{result.email}</div>
-          <div className="text-lg">[{result.total_guests}] {result.guest_names}</div>
+        {results.map(result => <div key={result.id}
+          className="w-full bg-slate-200 border shadow-sm p-4 rounded-md flex items-center space-x-4">
+          <div className='flex-1'>
+            <div className="text-2xl font-bold">{result.name}</div>
+            <div>{result.email}</div>
+            <div className="text-lg">[{result.total_guests}] {result.guest_names}</div>
+          </div>
+          <div className="text-3xl font-bold">{dayjs(`2024-01-01 ${result.time_slot}`).format('hA')}</div>
+
         </div>)}
         {!showRegistration && <Button variant='outline' onClick={() => setShowRegistration(true)}>Register Another</Button>}
       </div>}
