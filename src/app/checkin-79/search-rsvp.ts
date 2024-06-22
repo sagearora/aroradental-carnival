@@ -1,6 +1,6 @@
 'use server';
 
-import { RsvpItemType } from '@/app/RsvpItem';
+import { RsvpItemType } from '@/app/checkin-79/RsvpItem';
 import { doc } from '@/services/google-spreadsheet';
 import config from '@/utils/sheet-config';
 import Fuse from 'fuse.js'

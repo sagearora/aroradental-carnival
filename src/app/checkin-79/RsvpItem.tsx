@@ -11,6 +11,7 @@ export type RsvpItemType = {
     time_slot: string
     guest_names: string
     total_guests: number
+    current_patient: string
 }
 
 export default function RsvpItem({
@@ -37,10 +38,10 @@ export default function RsvpItem({
                 onClick={() => setCount(c => c + 1)} className="text-2xl w-full">+{count || ''}</Button>
             {count > 0 && <Button
                 onClick={() => setCount(c => c - 1)}
-                variant='destructive' className="text-2xl w-full">-1</Button>}
+                variant='outline' className="text-2xl w-full border-destructive text-destructive">-1</Button>}
         </div>
         <div className="flex-1">
-            <div className="text-2xl font-bold">{item.full_name}</div>
+            <div className="text-2xl font-bold">{item.full_name} - {item.current_patient}</div>
             <div>{item.email}</div>
             <div className="text-lg">[{item.total_guests}] {item.guest_names}</div>
         </div>
