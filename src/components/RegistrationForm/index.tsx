@@ -8,6 +8,7 @@ import { SubmitHandler, useFieldArray, useForm, useWatch } from 'react-hook-form
 import * as yup from 'yup';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/components/ui/use-toast';
+import EventWaiver from '@/components/EventWaiver';
 
 const schema = yup.object({
     full_name: yup.string().required('Full name is required'),
@@ -129,7 +130,13 @@ function RegistrationForm({
                         </FormItem>
                     )} />
 
+
+                <div>
+                    <EventWaiver />
+
+                </div>
                 <div className="space-y-4">
+                    <div className="font-semibold">Please provide guest details.</div>
                     {fields.map((field, index) => (
                         <div key={field.id} className="bg-slate-100 border shadow-md p-4 rounded-md space-y-2">
                             <div className="flex justify-between items-center">
@@ -185,6 +192,9 @@ function RegistrationForm({
                         {loading && <Loader2 className='w-4 h-4 animate-spin' />}
                         COMPLETE REGISTRATION
                     </Button>
+                    <p className="mb-4">
+                        By completing registration, you are agreeing that you have read and understood the "Event Waiver" above.
+                    </p>
                 </div>
             </form>
         </Form>
