@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
 export default function Home() {
-  const [query, setQuery] = useState('nav')
+  const [query, setQuery] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [results, setResults] = useState<any[]>([])
   const debouncedSearchTerm = useDebounce(query, 300);
