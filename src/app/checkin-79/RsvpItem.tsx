@@ -1,4 +1,6 @@
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { RsvpItemType } from "@/types/RsvpItemType"
 import { useDebounce } from "@uidotdev/usehooks"
 import dayjs from "dayjs"
@@ -31,7 +33,8 @@ export default function RsvpItem({
                 variant='outline' className="text-2xl w-full border-destructive text-destructive">-1</Button>}
         </div>
         <div className="flex-1">
-            <div className="text-2xl font-bold">{item.name} - {item.current_patient}</div>
+            <div className="text-2xl font-bold flex items-center space-x-2">
+                <div>{item.name} - {item.current_patient}</div> <Badge className={cn('uppercase',item.category === 'rsvp' ? 'bg-green-600' : 'bg-red-600')}>{item.category}</Badge></div>
             <div>{item.email}</div>
             <div className="text-lg">[{item.total_guests}] {item.guest_names}</div>
         </div>
