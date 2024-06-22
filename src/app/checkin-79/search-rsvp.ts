@@ -1,9 +1,12 @@
 'use server';
 
-import { RsvpItemType } from '@/app/checkin-79/RsvpItem';
-import { doc } from '@/services/google-spreadsheet';
-import config from '@/utils/sheet-config';
-import Fuse from 'fuse.js'
+import { serviceAccountAuth } from '@/services/google-spreadsheet';
+import parseRsvp from "@/utils/parse-rsvp";
+import Fuse from 'fuse.js';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
+
+const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID || '', serviceAccountAuth)
+
 
 export default async function searchRSVP(query: string) {
     try {
@@ -12,16 +15,11 @@ export default async function searchRSVP(query: string) {
         const rows = await sheet.getRows();
 
         const items = rows.map(row => {
-            return config.reduce((obj, item) => ({
-                ...obj,
-                [item.id]: item.parse ? item.parse(row.get(item.name)) : row.get(item.name),
-            }), {
-                id: row.rowNumber,
-            } as RsvpItemType)
+            return parseRsvp(row.rowNumber, row)
         })
         const fuse = new Fuse(items, {
             includeScore: true,
-            keys: ['full_name'],
+            keys: ['name'],
             threshold: 0.2,
         })
 

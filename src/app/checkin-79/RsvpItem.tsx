@@ -1,18 +1,8 @@
 import { Button } from "@/components/ui/button"
+import { RsvpItemType } from "@/types/RsvpItemType"
 import { useDebounce } from "@uidotdev/usehooks"
 import dayjs from "dayjs"
 import { useEffect, useState } from "react"
-
-export type RsvpItemType = {
-    id: number
-    checked_in?: number
-    full_name: string
-    email: string
-    time_slot: string
-    guest_names: string
-    total_guests: number
-    current_patient: string
-}
 
 export default function RsvpItem({
     item,
@@ -21,7 +11,7 @@ export default function RsvpItem({
     item: RsvpItemType
     checkIn: (id: number, count: number) => void
 }) {
-    const [count, setCount] = useState(item.checked_in || 0)
+    const [count, setCount] = useState<number>(item.checked_in || 0)
     const debouncedCount = useDebounce(count, 1000)
 
     useEffect(() => {
@@ -41,7 +31,7 @@ export default function RsvpItem({
                 variant='outline' className="text-2xl w-full border-destructive text-destructive">-1</Button>}
         </div>
         <div className="flex-1">
-            <div className="text-2xl font-bold">{item.full_name} - {item.current_patient}</div>
+            <div className="text-2xl font-bold">{item.name} - {item.current_patient}</div>
             <div>{item.email}</div>
             <div className="text-lg">[{item.total_guests}] {item.guest_names}</div>
         </div>

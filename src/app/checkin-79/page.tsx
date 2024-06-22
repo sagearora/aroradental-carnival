@@ -2,7 +2,8 @@
 import { useDebounce } from "@uidotdev/usehooks";
 import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
 
-import RsvpItem, { RsvpItemType } from "@/app/checkin-79/RsvpItem";
+import RsvpItem from "@/app/checkin-79/RsvpItem";
+import { RsvpItemType } from "../../types/RsvpItemType";
 import checkIn from "@/app/checkin-79/check-in";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
