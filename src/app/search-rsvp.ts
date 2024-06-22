@@ -1,5 +1,6 @@
 'use server';
 
+import { RsvpItemType } from '@/app/RsvpItem';
 import { doc } from '@/services/google-spreadsheet';
 import config from '@/utils/sheet-config';
 import Fuse from 'fuse.js'
@@ -16,7 +17,7 @@ export default async function searchRSVP(query: string) {
                 [item.id]: item.parse ? item.parse(row.get(item.name)) : row.get(item.name),
             }), {
                 id: row.rowNumber,
-            })
+            } as RsvpItemType)
         })
         const fuse = new Fuse(items, {
             includeScore: true,

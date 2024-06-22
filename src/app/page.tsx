@@ -2,15 +2,17 @@
 import { useDebounce } from "@uidotdev/usehooks";
 import { ChangeEventHandler, useCallback, useEffect, useState } from 'react';
 
-import searchRSVP from './search-rsvp';
-import { Input } from "@/components/ui/input";
+import RsvpItem, { RsvpItemType } from "@/app/RsvpItem";
+import checkIn from "@/app/check-in";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
+import searchRSVP from './search-rsvp';
 
 export default function Home() {
   const [query, setQuery] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [results, setResults] = useState<any[]>([])
+  const [results, setResults] = useState<RsvpItemType[]>([])
   const debouncedSearchTerm = useDebounce(query, 300);
 
   const search = useCallback(async () => {
@@ -18,7 +20,7 @@ export default function Home() {
     try {
       const data = await searchRSVP(query);
       if (data) {
-        setResults(data)
+        setResults(data.map(d => d.item))
         return;
       }
     } catch (e) {
@@ -62,13 +64,11 @@ export default function Home() {
         </Button>}
       </div>
       <div >
-        {results.map(({ item }) => <div key={item.id} className='py-4 border-b flex items-center space-x-4'>
-          <div className="text-6xl font-bold">{item.total_guests}</div>
-          <div>
-            <div className="text-2xl font-bold">{item.full_name}</div>
-            <div className="text-lg">{item.guest_names}</div>
-          </div>
-        </div>)}
+        {results.map((item) => <RsvpItem 
+          key={item.id}
+          item={item}
+          checkIn={checkIn}
+        />)}
       </div>
     </div>
   );

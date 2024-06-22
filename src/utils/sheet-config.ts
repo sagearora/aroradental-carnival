@@ -23,6 +23,11 @@ const config = [
     {
       name: 'guest names',
       id: 'guest_names',
+    },
+    {
+      name: 'checked in',
+      id: 'checked_in',
+      parse: (val: string) => +val
     }
   ];
   
