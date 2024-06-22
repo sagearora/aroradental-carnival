@@ -13,7 +13,7 @@ export default async function checkIn(id: number, count: number) {
 
         const row = rows.find(r => r.rowNumber === id)
         if (row) {
-            row.set('checked in', count)
+            row.set('checked_in', count)
             await row.save()
         }
     } catch(error: any) {
