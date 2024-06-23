@@ -24,20 +24,22 @@ export default function RsvpItem({
         checkIn(item.id, debouncedCount)
     }, [debouncedCount, item.id, item.checked_in])
 
-    return <div key={item.id} className='py-4 border-b flex items-center space-x-4'>
-        <div className="flex flex-col items-stretch self-start w-16 justify-center space-y-1">
-            <Button size='lg'
+    return <div key={item.id} className='py-4 border-b flex items-start space-x-2'>
+        <div className="flex flex-col items-stretch w-16 justify-center space-y-1">
+            <Button
                 onClick={() => setCount(c => c + 1)} className="text-2xl w-full">+{count || ''}</Button>
             {count > 0 && <Button
                 onClick={() => setCount(c => c - 1)}
                 variant='outline' className="text-2xl w-full border-destructive text-destructive">-1</Button>}
         </div>
-        <div className="flex-1">
-            <div className="text-2xl font-bold flex items-center space-x-2">
-                <div>{item.name} - {item.current_patient}</div> <Badge className={cn('uppercase',item.category === 'rsvp' ? 'bg-green-600' : 'bg-red-600')}>{item.category}</Badge></div>
-            <div>{item.email}</div>
-            <div className="text-lg">[{item.total_guests}] {item.guest_names}</div>
+        <div className="flex-1 min-w-0">
+            <div className="text-lg font-bold flex items-center space-x-2">
+                <div>{item.name} - {item.current_patient}</div> </div>
+            <div className="text-md">[{item.total_guests}] {item.guest_names}</div>
         </div>
-        <div className="text-3xl font-bold">{dayjs(`2024-01-01 ${item.time_slot}`).format('hA')}</div>
+        <div className="text-xl font-bold flex flex-col items-end">
+            {dayjs(`2024-01-01 ${item.time_slot}`).format('hA')}
+            <Badge className={cn('uppercase', item.category === 'rsvp' ? 'bg-green-600' : 'bg-red-600')}>{item.category}</Badge>
+        </div>
     </div>
 }

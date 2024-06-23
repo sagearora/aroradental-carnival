@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <div className="container py-8">
-      <div className="text-4xl font-bold mb-4">Arora Dental: Carnival</div>
+      <div className="text-4xl font-bold mb-4">Check-In</div>
       <div className="relative">
         <div className="absolute left-2 h-14 flex items-center">
           {isSubmitting ?
