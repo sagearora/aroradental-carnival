@@ -38,7 +38,7 @@ export default function RsvpItem({
             <div className="text-md">[{item.total_guests}] {item.guest_names}</div>
         </div>
         <div className="text-xl font-bold flex flex-col items-end">
-            {dayjs(`2024-01-01 ${item.time_slot}`).format('hA')}
+            {item.time_slot}
             <Badge className={cn('uppercase', item.category === 'rsvp' ? 'bg-green-600' : 'bg-red-600')}>{item.category}</Badge>
         </div>
     </div>
